@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages import web_utils
 
 
-def get_driver(headless=True):
+def get_driver(headless=False):
     # Initialize WebDriver
     service = Service(ChromeDriverManager().install())
     chrome_options = webdriver.ChromeOptions()

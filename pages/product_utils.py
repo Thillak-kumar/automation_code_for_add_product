@@ -70,6 +70,11 @@ def add_category(driver, category):
         raise Exception(f'Category "{category}" not found in dropdown!')
 
 
+def add_stock(driver, stock):
+    stock_el = driver.find_element(By.CSS_SELECTOR, 'input#stock')
+    stock_el.send_keys(stock)
+
+
 def click_on_save(driver):
     save_el = driver.find_element(By.CSS_SELECTOR, '[data-css="Product-new"] [data-testid="button-save"]')
     web_utils.js_click(driver, save_el)
@@ -77,15 +82,35 @@ def click_on_save(driver):
                                             '[data-css="Product-new"] [data-testid="button-save"]')
 
 
-def add_product_to_db(driver, name, image, price, discount_price, quantity, category):
-    click_on_test(driver)
-    click_on_product(driver)
+def click_on_present_in_cart(driver):
+    present_in_cart_el = driver.find_element(By.CSS_SELECTOR, "input#isPresentInCart")
+    web_utils.js_click(driver, present_in_cart_el)
+    time.sleep(2)
+
+
+def add_quantity_in_cart(driver, quantity):
+    quantity_el = driver.find_element(By.CSS_SELECTOR, 'input#quantityInCart')
+    quantity_el.send_keys(quantity)
+
+def click_on_present_in_wishlist(driver):
+    present_in_wishlist_el = driver.find_element(By.CSS_SELECTOR, "input#isPresentInWishList")
+    web_utils.js_click(driver, present_in_wishlist_el)
+    time.sleep(2)
+
+def add_product_to_db(driver, name, image, price, discount_price, quantity, stock, category, is_present_in_cart,
+                      is_present_in_wishlist,quantity_in_cart):
     click_on_new_button(driver)
     add_product_name(driver, name)
     add_product_image(driver, image)
     add_price(driver, price)
     add_discount_price(driver, discount_price)
     add_quantity(driver, quantity)
+    add_stock(driver, stock)
     add_category(driver, category)
+    if is_present_in_cart:
+        click_on_present_in_cart(driver)
+    if is_present_in_wishlist:
+        click_on_present_in_wishlist(driver)
+    add_quantity_in_cart(driver, quantity_in_cart)
     click_on_save(driver)
     time.sleep(3)

@@ -14,3 +14,4 @@ class TestAddCategory:
         ]
 
         add_category_to_db(driver, category_lst)
+        driver.quit()
